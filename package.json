@@ -1,0 +1,30 @@
+{
+  "name": "simple-pandoc",
+  "version": "0.1.0",
+  "description": "A thin and simple pandoc wrapper function",
+  "author": "Jun",
+  "main": "index.js",
+  "scripts": {
+    "test": "xo && ava"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/noraesae/simple-pandoc.git"
+  },
+  "bugs": {
+    "url": "https://github.com/noraesae/simple-pandoc/issues"
+  },
+  "homepage": "https://github.com/noraesae/simple-pandoc",
+  "keywords": [
+    "pandoc",
+    "markdown"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "ava": "^0.15.2",
+    "xo": "^0.15.1"
+  },
+  "xo": {
+    "space": 2
+  }
+}
