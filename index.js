@@ -20,6 +20,12 @@ const pandoc = (from, to) => {
     proc.stdin.end();
   });
 
+  converter.stream = srcStream => {
+    const proc = spawn(command, option);
+    srcStream.pipe(proc.stdin);
+    return proc.stdout;
+  };
+
   return converter;
 };
 

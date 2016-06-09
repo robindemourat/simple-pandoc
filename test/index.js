@@ -15,7 +15,25 @@ test('create pandoc instance', t => {
 
 test('convert', async t => {
   const mdToHtml = pandoc('markdown', 'html');
-  let md = fs.readFileSync(mdPath);
-  let html = fs.readFileSync(htmlPath);
+  const md = fs.readFileSync(mdPath);
+  const html = fs.readFileSync(htmlPath);
   t.is((await mdToHtml(md)).toString(), html.toString());
+});
+
+test('convert via stream', async t => {
+  const mdToHtml = pandoc('markdown', 'html');
+  const mdStream = fs.createReadStream(mdPath);
+  const outputStream = mdToHtml.stream(mdStream);
+  const html = fs.readFileSync(htmlPath);
+
+  const outputHtml = await new Promise((resolve, reject) => {
+    let data = '';
+    outputStream.on('data', chunk => {
+      data += chunk.toString();
+    });
+    outputStream.on('end', () => resolve(data));
+    outputStream.on('error', reject);
+  });
+
+  t.is(outputHtml.toString(), html.toString());
 });
