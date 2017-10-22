@@ -4,8 +4,14 @@ const spawn = require('child_process').spawn;
 
 const command = 'pandoc';
 
-const pandoc = (from, to) => {
-  const option = ['-f', from, '-t', to];
+const pandoc = (from, to, options) => {
+  if (options === undefined) {
+    options = {
+      s: true // standalone mode
+    }
+  };
+  const opts = Object.keys(options).map(o => '-' + o);
+  const option = opts.concat(['-f', from, '-t', to]);
 
   const converter = src => new Promise((resolve, reject) => {
     const proc = spawn(command, option);
